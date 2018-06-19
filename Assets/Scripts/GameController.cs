@@ -178,10 +178,20 @@ public class GameController : MonoBehaviour {
     
     
     // Update is called once per frame
-    void Update () {
-       
+    void Update ()
+    {
+
         turnCount = textUpdate.TurnCount;
-        //TODO use set buttons and text for the user along with other features needed 
+        
+        GameStateControl();
+        textUpdate.UpdateCurrentGameAction(gameState);
+        textUpdate.UpdateCurrentTeamText(currentTurn);
+        LookForWinner();
+
+    }
+
+    private void GameStateControl()
+    {
         switch (gameState)
         {
             case GameState.pickPlayer:
@@ -189,23 +199,23 @@ public class GameController : MonoBehaviour {
                 break;
             case GameState.pickWaypoint:
                 break;
-                //Loop Through the list to make it look for more players that are still able to move
+            
             case GameState.checkForMorePlayers:
                 CheckForHasMoved();
                 break;
             case GameState.chooseActions:
 
                 break;
-                //Reset the hasMoved/TakenTurn on the team
+
             case GameState.startTurn:
                 ResetCurrentTurn();
                 gameState = GameState.pickPlayer;
                 break;
             case GameState.nextTurn:
-               
+
                 selectedPlayer = null;
                 selectedWaypoint = null;
-                
+
                 NextTurn();
                 break;
             case GameState.scored:
@@ -216,15 +226,19 @@ public class GameController : MonoBehaviour {
             case GameState.faceoff:
                 textUpdate.DisplayFaceOffComponents();
                 break;
-
-
+            case GameState.faceOffSecondary:
+                break;
+            case GameState.endGame:
+                break;
         }
-        textUpdate.UpdateCurrentGameAction(gameState);
-        textUpdate.UpdateCurrentTeamText(currentTurn);
-        if(maxTurns <= textUpdate.TurnCount)
+    }
+
+    private void LookForWinner()
+    {
+        if (maxTurns <= textUpdate.TurnCount)
         {
             Turn winner;
-            switch(textUpdate.Team1Score < textUpdate.Team2Score)
+            switch (textUpdate.Team1Score < textUpdate.Team2Score)
             {
                 case true:
                     winner = Turn.team2;
@@ -236,11 +250,13 @@ public class GameController : MonoBehaviour {
                     winner = Turn.team1;
                     break;
             }
+            selectedPlayer = null;
+            selectedWaypoint = null;
+            Debug.Log(winner);
             textUpdate.UpdateWinnerText(winner);
             gameState = GameState.endGame;
-            
+
         }
-        
     }
 
     private void LineUpForFaceOff()
@@ -279,6 +295,7 @@ public class GameController : MonoBehaviour {
 
         int team1Guess = randNum - faceOffGuesses[0];
         int team2Guess = randNum - faceOffGuesses[1];
+
         Debug.Log(team1Guess + ", " + team2Guess);
         if (team1Guess < team2Guess)
         {
@@ -306,7 +323,7 @@ public class GameController : MonoBehaviour {
                 var colliderTest = player.GetComponent<Collider>();
                 colliderTest.enabled = false;
                 colliderTest.enabled = true;
-                //player.hasBeenBodyChecked = false;
+                
             }
         }
         else
@@ -318,7 +335,7 @@ public class GameController : MonoBehaviour {
                 var colliderTest = player.GetComponent<Collider>();
                 colliderTest.enabled = false;
                 colliderTest.enabled = true;
-                //player.hasBeenBodyChecked = false;
+
             }
         }
     }
@@ -660,5 +677,5 @@ public class GameController : MonoBehaviour {
 
     }
 
-   
+
 }

@@ -113,8 +113,27 @@ public class TextUpdate : MonoBehaviour {
 
     public void UpdateWinnerText(Turn winner)
     {
+        
+        string tempText = winner.ToString();
+
+        tempText = tempText.Replace('t', 'T');
+
+        if (winner.Equals(Turn.team1))
+        {
+            tempText = tempText.Replace('1', ' ');
+            tempText += "1";
+        }
+        else
+        {
+            tempText = tempText.Replace('2', ' ');
+            tempText += "2";
+        }
+
+        tempText += " Wins!";
+
         winText.enabled = true;
-        winText.text = winner.ToString();
+        winText.text = tempText;
+       
        
     }
 
