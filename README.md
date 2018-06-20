@@ -2,12 +2,12 @@
 What The Puck is a Turn Based Ice Hockey strategy game. The idea spawned from the Ludum Dare 41 which challenged devs to create a game that used a mix between less common or "incompatible" genres. However, due to work and being relatively inexperienced with game development and design, it took me about 6 weeks extra working on and off to get the game to a place where I was happy to put it on the internet.
 
 How to play
-	Gameplay
-		Faceoffs	
-			1. Team 1 selects a number 1 - 5 first
-			2. Team 2 selects a number 1 - 5 second
-			3. Whichever team is close to the random number generated will be the team that is closest will be the one who can make the first move
+	Faceoffs	
+		1. Team 1 selects a number 1 - 5 first
+		2. Team 2 selects a number 1 - 5 second
+		3. Whichever team is close to the random number generated will be the team that is closest will be the one who can make the first move
 
+	Gameplay
 		Move
 			1. Select a player
 			2. Select a Waypoint
